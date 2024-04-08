@@ -39,15 +39,21 @@
     <div class="mobile-menu-closer"></div>
     <div class="content-menu">
         <div class="content-infos">
-            <div class="info"><b>Versão:</b> 1.0.3</div>
-            <div class="info"><b>Ultima Atualização:</b> 29/02/2024</div>
+            <div class="info"><b>Versão:</b> 1.0.0</div>
+            <div class="info"><b>Ultima Atualização:</b> 07/04/2024</div>
         </div>
         <ul>
             <li class="scroll-to-link active" data-target="content-get-started">
                 <a>Iniciar</a>
             </li>
-            <li class="scroll-to-link" data-target="content-post-lotes">
-                <a>Integração do lote</a>
+            <li class="scroll-to-link" data-target="content-post-aprovcc">
+                <a>API PCO Aprovação pelo gestor do CC</a>
+            </li>
+            <li class="scroll-to-link" data-target="content-post-transfsld">
+                <a>API PCO Transferência de Saldo</a>
+            </li>
+            <li class="scroll-to-link" data-target="content-post-pcoaporte">
+                <a>API PCO Aporte de Saldo</a>
             </li>
         </ul>
     </div>
@@ -67,31 +73,22 @@
             </p>
         
         </div>
-        <div class="overflow-hidden content-section" id="content-post-lotes">
-            <h2>Integração do lote</h2>
+        <div class="overflow-hidden content-section" id="content-post-aprovcc">
+            <h2>API PCO Aprovação pelo gestor do CC</h2>
             <pre><code class="bash">
 # Exemplo curl \
--X POST http://solicitarurl.com/rest/APILOTES/APILOTEESP \
+-X POST http://solicitarurl.com/rest/APIPCO/APROVCC \
 --header 'Content-Type: application/json' \
---data '[
-    {
-        "cLFilial":"101",
-        "cProduto":"PAN00009",
-        "cOP":"000001",
-        "cLote":"TESTE",
-        "cAnalise":"A01",
-        "nQuantidade":1,
-        "cCaracteristica":"TESTE",
-        "cResultado":"OK",
-        "dValidade":"30/03/24",
-        "dFabricacao":"20/12/23",
-        "cValMin":"AA",
-        "cValMax":"ZZ",
-        "cStatus":"APROVADO",
-        "cImprime":"Sim",
-        "cJustificativa","TESTE"
-    }
-]'
+--data '{
+    "xFilial":"301",
+    "cConta":"510105002",
+    "cCCusto":"1080101",
+    "dData":"30/03/2024",
+    "cPedido":"018199",
+    "cUsrLib":"000001",
+    "cStatus":"A",
+    "nValor": 100.00
+}'
         	</code></pre>
             <pre><code class="json">
 Exemplo retorno:
@@ -123,65 +120,181 @@ Sem sucesso:
                 </thead>
                 <tbody>
                 <tr>
-                    <td>cLFilial</td>
+                    <td>xFilial</td>
                     <td>String (max 3)</td>
-                    <td>Filial do lote</td>
+                    <td>Filial</td>
                 </tr><tr>
-                    <td>cProduto</td>
-                    <td>String (max 15)</td>
-                    <td>(Alfanumérico)</td>
+                    <td>cConta</td>
+                    <td>String (max 12)</td>
+                    <td>Conta Contabil</td>
                 </tr><tr>
-                    <td>cOP</td>
-                    <td>String (max 6)</td>
-                    <td>(Alfanumérico)</td>
+                    <td>cCCusto</td>
+                    <td>String (max 9)</td>
+                    <td>Centro de Custo</td>
                 </tr><tr>
-                    <td>cLote</td>
+                    <td>dData</td>
                     <td>String (max 10)</td>
-                    <td>(Alfanumérico)</td>
-                </tr><tr>
-                    <td>cAnalise</td>
-                    <td>String (max 3)</td>
-                    <td>(Alfanumérico)</td>
-					<td></td>
-                </tr><tr>
-                    <td>nQuantidade</td>
-                    <td>Number (max 14,4)</td>
                     <td></td>
                 </tr><tr>
-                    <td>cCaracteristica</td>
-                    <td>String (max 80)</td>
-                    <td>(Alfanumérico)</td>
+                    <td>cPedido</td>
+                    <td>String (max 6)</td>
+                    <td>Pedido de Compras</td>
+					<td></td>
                 </tr><tr>
-                    <td>cResultado</td>
-                    <td>String (max 80)</td>
-                    <td>(Alfanumérico)</td>
-                </tr><tr>
-                    <td>dValidade</td>
-                    <td>String (max 10)</td>
-                    <td>(Alfanumérico)</td>
-                </tr><tr>
-                    <td>dFabricacao</td>
-                    <td>String (max 10)</td>
-                    <td>(Alfanumérico)</td>
-                </tr><tr>
-                    <td>cValMin</td>
-                    <td>String (max 80)</td>
-                    <td>(Alfanumérico)</td>
-                </tr><tr>
-                    <td>cValMax</td>
-                    <td>String (max 80)</td>
-                    <td>(Alfanumérico)</td>
+                    <td>cUsrLib</td>
+                    <td>String (max 6)</td>
+                    <td>codigo do usuario Protheus</td>
                 </tr><tr>
                     <td>cStatus</td>
-                    <td>String (max 30)</td>
-                    <td>(Alfanumérico)</td>
+                    <td>String (max 1)</td>
+                    <td>A para Aprovação e R para Rejeição</td>
                 </tr><tr>
-                    <td>cImprime</td>
+                    <td>nValor</td>
+                    <td>Number (max 16,2)</td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+ <div class="overflow-hidden content-section" id="content-post-transfsld">
+            <h2>API PCO Transferência de Saldo</h2>
+            <pre><code class="bash">
+# Exemplo curl \
+-X POST http://solicitarurl.com/rest/APIPCO/APROVCC \
+--header 'Content-Type: application/json' \
+--data '{
+    "xFilial":"301",
+    "cDConta":"510105002",
+    "cDCCusto":"1080101",
+    "cPConta":"510105001",
+    "cPCCusto":"1080102",
+    "dData":"30/03/2024",
+    "nValor": 100.00
+}'
+        	</code></pre>
+            <pre><code class="json">
+Exemplo retorno:
+
+Com sucesso:
+
+{
+    "status": true,
+    "msg": "integrado com sucesso."
+}
+
+
+Sem sucesso:
+
+{
+    "status": false,
+    "msg": "erro."
+}
+
+                </code></pre>
+            <h4>BODY PARAMETERS</h4>
+            <table class="central-overflow-x">
+                <thead>
+                <tr>
+                    <th>Campo</th>
+                    <th>Tipo</th>
+                    <th>Descrição</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>xFilial</td>
                     <td>String (max 3)</td>
-                    <td>Sim ou Nao</td>
+                    <td>Filial</td>
                 </tr><tr>
-                    <td>cJustificativa</td>
-                    <td>String</td>
+                    <td>cDConta</td>
+                    <td>String (max 12)</td>
+                    <td>De Conta Contabil</td>
+                </tr><tr>
+                    <td>cDCCusto</td>
+                    <td>String (max 9)</td>
+                    <td>De Centro de Custo</td>
+                </tr><tr>
+                    <td>cPConta</td>
+                    <td>String (max 12)</td>
+                    <td>Para Conta Contabil</td>
+                </tr><tr>
+                    <td>cPCCusto</td>
+                    <td>String (max 9)</td>
+                    <td>Para Centro de Custo</td>
+                </tr><tr>
+                    <td>dData</td>
+                    <td>String (max 10)</td>
+                    <td></td>
+                </tr><tr>
+                    <td>nValor</td>
+                    <td>Number (max 16,2)</td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="overflow-hidden content-section" id="content-post-pcoaporte">
+            <h2>API PCO Aprovação pelo gestor do CC</h2>
+            <pre><code class="bash">
+# Exemplo curl \
+-X POST http://solicitarurl.com/rest/APIPCO/APROVCC \
+--header 'Content-Type: application/json' \
+--data '{
+    "xFilial":"301",
+    "cConta":"510105002",
+    "cCCusto":"1080101",
+    "dData":"30/03/2024",
+    "nValor": 100.00
+}'
+        	</code></pre>
+            <pre><code class="json">
+Exemplo retorno:
+
+Com sucesso:
+
+{
+    "status": true,
+    "msg": "integrado com sucesso."
+}
+
+
+Sem sucesso:
+
+{
+    "status": false,
+    "msg": "erro."
+}
+
+                </code></pre>
+            <h4>BODY PARAMETERS</h4>
+            <table class="central-overflow-x">
+                <thead>
+                <tr>
+                    <th>Campo</th>
+                    <th>Tipo</th>
+                    <th>Descrição</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>xFilial</td>
+                    <td>String (max 3)</td>
+                    <td>Filial</td>
+                </tr><tr>
+                    <td>cConta</td>
+                    <td>String (max 12)</td>
+                    <td>Conta Contabil</td>
+                </tr><tr>
+                    <td>cCCusto</td>
+                    <td>String (max 9)</td>
+                    <td>Centro de Custo</td>
+                </tr><tr>
+                    <td>dData</td>
+                    <td>String (max 10)</td>
+                    <td></td>
+                </tr><tr>
+                    <td>nValor</td>
+                    <td>Number (max 16,2)</td>
                     <td></td>
                 </tr>
                 </tbody>
