@@ -39,8 +39,8 @@
     <div class="mobile-menu-closer"></div>
     <div class="content-menu">
         <div class="content-infos">
-            <div class="info"><b>Versão:</b> 1.0.0</div>
-            <div class="info"><b>Ultima Atualização:</b> 07/04/2024</div>
+            <div class="info"><b>Versão:</b> 1.0.1</div>
+            <div class="info"><b>Ultima Atualização:</b> 12/04/2024</div>
         </div>
         <ul>
             <li class="scroll-to-link active" data-target="content-get-started">
@@ -54,6 +54,9 @@
             </li>
             <li class="scroll-to-link" data-target="content-post-pcoaporte">
                 <a>API PCO Aporte de Saldo</a>
+            </li>
+            <li class="scroll-to-link" data-target="content-post-aprovrdv">
+                <a>API PCO Aprovação RDV</a>
             </li>
         </ul>
     </div>
@@ -160,7 +163,7 @@ Sem sucesso:
             <h2>API PCO Transferência de Saldo</h2>
             <pre><code class="bash">
 # Exemplo curl \
--X POST http://solicitarurl.com/rest/APIPCO/APROVCC \
+-X POST http://solicitarurl.com/rest/APIPCO/TRANSFSLD \
 --header 'Content-Type: application/json' \
 --data '{
     "xFilial":"301",
@@ -234,10 +237,10 @@ Sem sucesso:
             </table>
         </div>
         <div class="overflow-hidden content-section" id="content-post-pcoaporte">
-            <h2>API PCO Aprovação pelo gestor do CC</h2>
+            <h2>API PCO Aporte de Saldo</h2>
             <pre><code class="bash">
 # Exemplo curl \
--X POST http://solicitarurl.com/rest/APIPCO/APROVCC \
+-X POST http://solicitarurl.com/rest/APIPCO/PCOAPORTE \
 --header 'Content-Type: application/json' \
 --data '{
     "xFilial":"301",
@@ -288,6 +291,78 @@ Sem sucesso:
                     <td>cCCusto</td>
                     <td>String (max 9)</td>
                     <td>Centro de Custo</td>
+                </tr><tr>
+                    <td>dData</td>
+                    <td>String (max 10)</td>
+                    <td></td>
+                </tr><tr>
+                    <td>nValor</td>
+                    <td>Number (max 16,2)</td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+<div class="overflow-hidden content-section" id="content-post-aprovrdv">
+            <h2>API PCO Aprovação RDV</h2>
+            <pre><code class="bash">
+# Exemplo curl \
+-X POST http://solicitarurl.com/rest/APIPCO/APRRDV \
+--header 'Content-Type: application/json' \
+--data '{
+    "xFilial":"301",
+    "cConta":"510105002",
+    "cCCusto":"1080101",
+    "cRDV":"10203040",
+    "dData":"30/03/2024",
+    "nValor": 100.00
+}'
+        	</code></pre>
+            <pre><code class="json">
+Exemplo retorno:
+
+Com sucesso:
+
+{
+    "status": true,
+    "msg": "integrado com sucesso."
+}
+
+
+Sem sucesso:
+
+{
+    "status": false,
+    "msg": "erro."
+}
+
+                </code></pre>
+            <h4>BODY PARAMETERS</h4>
+            <table class="central-overflow-x">
+                <thead>
+                <tr>
+                    <th>Campo</th>
+                    <th>Tipo</th>
+                    <th>Descrição</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>xFilial</td>
+                    <td>String (max 3)</td>
+                    <td>Filial</td>
+                </tr><tr>
+                    <td>cConta</td>
+                    <td>String (max 12)</td>
+                    <td>Conta Contabil</td>
+                </tr><tr>
+                    <td>cCCusto</td>
+                    <td>String (max 9)</td>
+                    <td>Centro de Custo</td>
+                </tr><tr>
+                    <td>cRDV</td>
+                    <td>String (max 10)</td>
+                    <td>Codigo do RDV</td>
                 </tr><tr>
                     <td>dData</td>
                     <td>String (max 10)</td>
