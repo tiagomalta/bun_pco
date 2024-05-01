@@ -89,8 +89,8 @@
     "dData":"30/03/2024",
     "cPedido":"018199",
     "cUsrLib":"000001",
-    "cStatus":"A",
-    "nValor": 100.00
+    "nValor": 100.00,
+    "cSolPor":"XXXXXXX"
 }'
         	</code></pre>
             <pre><code class="json">
@@ -148,13 +148,13 @@ Sem sucesso:
                     <td>String (max 6)</td>
                     <td>codigo do usuario Protheus</td>
                 </tr><tr>
-                    <td>cStatus</td>
-                    <td>String (max 1)</td>
-                    <td>A para Aprovação e R para Rejeição</td>
-                </tr><tr>
                     <td>nValor</td>
                     <td>Number (max 16,2)</td>
                     <td></td>
+                </tr><tr>
+                    <td>cSolPor</td>
+                    <td>String (max 150)</td>
+                    <td>Codigo da solicitacao portal</td>
                 </tr>
                 </tbody>
             </table>
@@ -172,7 +172,8 @@ Sem sucesso:
     "cPConta":"510105001",
     "cPCCusto":"1080102",
     "dData":"30/03/2024",
-    "nValor": 100.00
+    "nValor": 100.00,
+    "cUsrLib":"000001"
 }'
         	</code></pre>
             <pre><code class="json">
@@ -232,6 +233,10 @@ Sem sucesso:
                     <td>nValor</td>
                     <td>Number (max 16,2)</td>
                     <td></td>
+                </tr><tr>
+                    <td>cUsrLib</td>
+                    <td>String (max 6)</td>
+                    <td>codigo do usuario protheus</td>
                 </tr>
                 </tbody>
             </table>
