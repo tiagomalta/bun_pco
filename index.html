@@ -39,8 +39,8 @@
     <div class="mobile-menu-closer"></div>
     <div class="content-menu">
         <div class="content-infos">
-            <div class="info"><b>Versão:</b> 1.0.3</div>
-            <div class="info"><b>Ultima Atualização:</b> 03/05/2024</div>
+            <div class="info"><b>Versão:</b> 1.0.4</div>
+            <div class="info"><b>Ultima Atualização:</b> 19/06/2024</div>
         </div>
         <ul>
             <li class="scroll-to-link active" data-target="content-get-started">
@@ -166,7 +166,8 @@ Sem sucesso:
 -X POST http://solicitarurl.com/rest/APIPCO/TRANSFSLD \
 --header 'Content-Type: application/json' \
 --data '{
-    "xFilial":"301",
+    "xFilDe":"301",
+    "xFilPara":"301",
     "cDConta":"510105002",
     "cDCCusto":"1080101",
     "cPConta":"510105001",
@@ -174,7 +175,8 @@ Sem sucesso:
     "dData":"30/03/2024",
     "nValor": 100.00,
     "cUsrLib":"000001",
-    "cPedCom":"XXXXXX"
+    "cPedCom":"XXXXXX",
+    "cTpTrs":"1"
 }'
         	</code></pre>
             <pre><code class="json">
@@ -207,7 +209,11 @@ Sem sucesso:
                 </thead>
                 <tbody>
                 <tr>
-                    <td>xFilial</td>
+                    <td>xFilDe</td>
+                    <td>String (max 3)</td>
+                    <td>Filial</td>
+                </tr><tr>
+                    <td>xFilPara</td>
                     <td>String (max 3)</td>
                     <td>Filial</td>
                 </tr><tr>
@@ -242,6 +248,10 @@ Sem sucesso:
                     <td>cPedCom</td>
                     <td>String (max 6)</td>
                     <td>Pedido de Compras Protheus</td>
+                </tr><tr>
+                    <td>cTpTrs</td>
+                    <td>String (max 1)</td>
+                    <td>1-ENTRE CONTAS DO MESMO PACOTE,2-ENTRE CONTAS DE PACOTE DIFERENTE,3-ENTRE CENTRO DE CUSTO,4-ENTRE FILIAIS</td>
                 </tr>
                 </tbody>
             </table>
